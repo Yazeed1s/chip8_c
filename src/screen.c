@@ -6,7 +6,6 @@ void checkBounds(int x, int y) {
     assert(x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT);
 }
 
-
 void clearScreen(struct Screen *screen) {
     memset(screen->pixels, 0, sizeof(screen->pixels));
 }
@@ -17,9 +16,9 @@ bool screenIsSet(struct Screen *screen, int x, int y) {
 }
 
 /*	hardest part of all!
-	http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
+    http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
 
-	Dxyn - DRW Vx, Vy, nibble
+    Dxyn - DRW Vx, Vy, nibble
     Display n-byte sprite starting at memory location I at (Vx, Vy), set VF = collision.
 
     The interpreter reads n bytes from memory, starting at the address stored in I. These bytes are then displayed as
@@ -44,11 +43,11 @@ bool screenIsSet(struct Screen *screen, int x, int y) {
 bool drawSprite(struct Screen *screen, int x, int y, const char *sprite, int num) {
     bool pixelCollison = false;
     int byte = 8;
-    // num == N in main.c execOpcode()
+    // num == N in main.c execOpcJode()
     for (int y_cord = 0; y_cord < num; y_cord++) {
-        unsigned short c = sprite[y_cord];
+        char c = sprite[y_cord];
         for (int x_cord = 0; x_cord < byte; x_cord++) {
-            if ((c & (0x80 >> x_cord)) != 0) {
+            if ((c & (0x80 >> x_cord)) == 0) {
                 continue;
             }
             if (screen->pixels[(y_cord + y) % HEIGHT][(x_cord + x) % WIDTH]) {

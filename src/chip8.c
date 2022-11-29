@@ -140,14 +140,15 @@ void execOpcode(struct Chip8 *chip8, unsigned short opcode) {
     // https://en.wikipedia.org/wiki/CHIP-8
     // https://tobiasvl.github.io/blog/write-a-chip-8-emulator/
 
+    // x and y = instructions like 5XY0
     // X: The second nibble.
     // Used to look up one of the 16 registers (VX)
     // from V0 through VF.
-    unsigned char X = (opcode >> 8) & 0x000F;
+    unsigned char X = (opcode & 0x0F00) >> 8;
     // Y: The third nibble.
     // Also used to look up one of the 16 registers (VY)
     // from V0 through VF.
-    unsigned char Y = (opcode >> 4) & 0x000F;
+    unsigned char Y = (opcode & 0x00F0) >> 4;
     // N: The fourth nibble. A 4-bit number.
     unsigned char N = opcode & 0x000F;
     // NN: The second byte (third and fourth nibbles).
